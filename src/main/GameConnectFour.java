@@ -48,8 +48,12 @@ public class GameConnectFour {
 
             //TODO : Search another method to initialize selectedBoardLine
             int selectedBoardLine;
+            Object[] updateResult;
 
-            selectedBoardLine=boardClass.updateBoard(choice, currentPlayer, board);
+            updateResult=boardClass.updateBoard(choice, currentPlayer, board);
+            selectedBoardLine = (int) updateResult[0];
+            board = (int[][]) updateResult[1];
+
             if (selectedBoardLine==-9999) {
                 System.out.println("Selected number is incorrect.");
                 break;
@@ -62,11 +66,15 @@ public class GameConnectFour {
             for(int i=0; i<=1; i++){
                 switch (i) {
                     case 0:
-                        checkResult=winStatus(checker.checkColumn(board, choice, currentPlayer));
-                        if(winningPlay) break;
+                        checkResult=checker.checkColumn(board, choice, currentPlayer);
+                        winningPlay=winStatus(checkResult.getWinningPoints());
+                        board=checkResult.getBoard();
+                        break;
                     case 1:
-                        winningPlay=winStatus(checker.checkRow(board, selectedBoardLine, currentPlayer));
-                        if(winningPlay) break;
+                        checkResult=checker.checkRow(board, selectedBoardLine, currentPlayer);
+                        winningPlay=winStatus(checkResult.getWinningPoints());
+                        board=checkResult.getBoard();
+                        break;
                 }
             }
 

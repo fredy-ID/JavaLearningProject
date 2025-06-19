@@ -69,24 +69,24 @@ public class Checker {
         return new CheckResult(winningPoints, board);
     }
 
-    public int checkRow(
+    public CheckResult checkRow(
             int[][] board,
             int selectedBoardLine,
             int currentPlayer){
 
-                int winningPoints=0;
-                if(board[selectedBoardLine] != null){
-                    for (int i=0; i<board[selectedBoardLine].length; i++) {
-                        if(board[selectedBoardLine][i]==currentPlayer){
-                            winningPoints++;
-                        }
-                        else{
-                            winningPoints=0;
-                        }
+            int winningPoints=0;
+            if(board[selectedBoardLine] != null){
+                for (int i=0; i<board[selectedBoardLine].length; i++) {
+                    if(board[selectedBoardLine][i]==currentPlayer){
+                        winningPoints++;
+                    }
+                    else{
+                        winningPoints=0;
                     }
                 }
+            }
 
-        return winningPoints;
+        return new CheckResult(winningPoints, board);
     }
 
     /*
