@@ -76,9 +76,22 @@ public class Checker {
             int currentPlayer){
 
             int winningPoints=0;
-            if(board[selectedBoardLine] != null){
+            if(selectedBoardLine-1 > 0 ){
                 for (int i=0; i<board[selectedBoardLine-1].length; i++) {
                     if(board[selectedBoardLine][i]==currentPlayer){
+                        winningPoints++;
+                        if(winningPoints==4){
+                            break;
+                        }
+                        continue;
+                    }
+                    else{
+                        winningPoints=0;
+                    }
+                }
+            }else {
+                for (int i=0; i<board[0].length; i++) {
+                    if(board[0][i]==currentPlayer){
                         winningPoints++;
                         if(winningPoints==4){
                             break;
