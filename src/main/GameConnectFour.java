@@ -13,6 +13,57 @@ public class GameConnectFour {
         }
     }
 
+    private int checkToTopLeft(int[][] board, int choice, int selectedBoardLine, int currentPlayer, int winningPoints){
+        for(int i=0; i<board.length; i++){
+            int indexToCheck = choice - (i+1);
+            int rowToCheck = selectedBoardLine - (i+1);
+            if (indexToCheck >= 0 && rowToCheck >= 0) {
+                if(board[rowToCheck][indexToCheck]==currentPlayer) {
+                    winningPoints++;
+                    if(winningPoints==4){
+                        System.out.println("You won (horizontal)! ");
+                        displayBoard(board);
+                        break;
+                    }
+                }else {
+                    winningPoints=0;
+                    break;
+                }
+            } else {
+                winningPoints=0;
+                break;
+            }
+        }
+        return winningPoints;
+    }
+
+    private int checkToBottomRight(int[][] board, int choice, int selectedBoardLine, int currentPlayer, int winningPoints) {
+        for(int i=0; i<board.length; i++){
+            int indexToCheck = choice++;
+            int rowToCheck = selectedBoardLine++;
+            System.out.println("rowToCheck : "+rowToCheck);
+            System.out.println("indexToCheck : "+indexToCheck);
+            System.out.println("board_rowToCheck_.length : "+board[rowToCheck].length);
+            if (indexToCheck <= board[rowToCheck].length) {
+                if(board[rowToCheck][indexToCheck]==currentPlayer) {
+                    winningPoints++;
+                    if(winningPoints==4){
+                        System.out.println("You won (horizontal)! ");
+                        displayBoard(board);
+                        break;
+                    }
+                }else {
+                    winningPoints=0;
+                    break;
+                }
+            } else {
+                winningPoints=0;
+                break;
+            }
+        }
+        return winningPoints;
+    }
+
     // Ask name
     public void Play() {
         int[][] board = {
@@ -37,14 +88,16 @@ public class GameConnectFour {
             System.out.println("You selected column : "+choice);
 
             boolean boardUpdated = false;
-            int[] selectedBoardLine = null;
+
+            //TODO : Search another method to initialize selectedBoardLine
+            int selectedBoardLine = -9999;
 
             //update board
             for (int i = board.length - 1; i >= 0; i--) { // rows
                 for (int j = 0; j < board[i].length; j++) { //columns
                     if(j==choice-1 && board[i][j]==0){
                         board[i][j] = currentPlayer;
-                        selectedBoardLine=board[i];
+                        selectedBoardLine=i;
                         boardUpdated = true;
                     }
                 }
@@ -58,7 +111,7 @@ public class GameConnectFour {
             boolean winningPlay = false;
             int winningPoints = 0;
 
-            //column win
+            //check column win
             for (int i=0; i<board.length; i++) { // rows
                 if(board[i][choice-1]==currentPlayer){
                     winningPoints++;
@@ -76,10 +129,10 @@ public class GameConnectFour {
             }
 
             //horizontal win
-            if(selectedBoardLine != null && !winningPlay){
+            if(board[selectedBoardLine] != null && !winningPlay){
                 winningPoints=0;
-                for (int i=0; i<selectedBoardLine.length; i++) {
-                    if(selectedBoardLine[i]==currentPlayer){
+                for (int i=0; i<board[selectedBoardLine].length; i++) {
+                    if(board[selectedBoardLine][i]==currentPlayer){
                         winningPoints++;
                         if(winningPoints==4){
                             winningPlay=true;
@@ -93,6 +146,40 @@ public class GameConnectFour {
                     }
                 }
             }
+
+            //top-left to bottom-right
+            if(board[selectedBoardLine] != null && !winningPlay) {
+                //to bottom-right
+                winningPoints = checkToBottomRight(board, choice, selectedBoardLine, currentPlayer, winningPoints);
+
+                if (winningPoints == 4) {
+                    winningPlay = true;
+                    System.out.println("You won (vertical top-left/bottom-right)! ");
+                    displayBoard(board);
+                }
+                //token is not in the first row
+                if (selectedBoardLine != 0) {
+                    // to top-left
+                    winningPoints = checkToTopLeft(board, choice, selectedBoardLine, currentPlayer, winningPoints);
+                }
+                if (winningPoints == 4) {
+                    winningPlay = true;
+                    System.out.println("You won (vertical top-left/bottom-right)! ");
+                    displayBoard(board);
+                }
+            }
+
+            //top-right to bottom-left
+
+
+
+            // TODO: Ajouter la vérification des victoires diagonales ici (haut-gauche/bas-droite et haut-droite/bas-gauche)
+            if(board[selectedBoardLine] != null && !winningPlay){
+                winningPoints=0;
+
+
+            }
+
             System.out.println("Board status ");
             displayBoard(board);
 
