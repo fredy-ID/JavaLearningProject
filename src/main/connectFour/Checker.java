@@ -66,6 +66,7 @@ public class Checker {
                     winningPoints=0;
                 }
             }
+
         return new CheckResult(winningPoints, board);
     }
 
@@ -76,16 +77,19 @@ public class Checker {
 
             int winningPoints=0;
             if(board[selectedBoardLine] != null){
-                for (int i=0; i<board[selectedBoardLine].length; i++) {
+                for (int i=0; i<board[selectedBoardLine-1].length; i++) {
                     if(board[selectedBoardLine][i]==currentPlayer){
                         winningPoints++;
+                        if(winningPoints==4){
+                            break;
+                        }
+                        continue;
                     }
                     else{
                         winningPoints=0;
                     }
                 }
             }
-
         return new CheckResult(winningPoints, board);
     }
 

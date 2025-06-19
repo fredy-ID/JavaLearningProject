@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import main.connectFour.Board;
 import main.connectFour.GameView;
@@ -35,13 +36,15 @@ public class GameConnectFour {
         int playerTwo = 2;
         int currentPlayer = playerOne;
 
+        int[][] board = boardClass.GetBoard();
+        gameView.displayBoard(board);
+
         while (gameStatus) {
-            int[][] board = boardClass.GetBoard();
             Checker.CheckResult checkResult;
 
             System.out.println("Player : "+currentPlayer+" is playing.");
             System.out.println("Possible choices :  1,2,3,4,5,6");
-            gameView.displayBoard(board);
+
 
             int choice = scanner.nextInt();
             System.out.println("You selected column : "+choice);
@@ -54,10 +57,16 @@ public class GameConnectFour {
             selectedBoardLine = (int) updateResult[0];
             board = (int[][]) updateResult[1];
 
+            //System.out.println("Board 1 : "+ Arrays.deepToString(board));
+
+
+
             if (selectedBoardLine==-9999) {
                 System.out.println("Selected number is incorrect.");
                 break;
             }
+
+            System.out.println("Coin dropped to row : "+selectedBoardLine+ " column "+choice);
 
             //Check wining condition
             boolean winningPlay = false;
@@ -69,19 +78,23 @@ public class GameConnectFour {
                         checkResult=checker.checkColumn(board, choice, currentPlayer);
                         winningPlay=winStatus(checkResult.getWinningPoints());
                         board=checkResult.getBoard();
+
                         break;
                     case 1:
                         checkResult=checker.checkRow(board, selectedBoardLine, currentPlayer);
                         winningPlay=winStatus(checkResult.getWinningPoints());
                         board=checkResult.getBoard();
+
                         break;
                 }
             }
 
-            System.out.println("Board status ");
+            System.out.println("winningPlay 3 : "+winningPlay);
+
+            System.out.println("Board status : ");
             gameView.displayBoard(board);
 
-            //terminer la partie ou continuer
+            //continue or end game
             if(winningPlay){
                 gameStatus=false;
                 System.out.println("End Game.");

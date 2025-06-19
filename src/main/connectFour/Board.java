@@ -1,21 +1,15 @@
 package main.connectFour;
 
-import java.util.Arrays;
-
 public class Board {
-    private int[][] board;
 
     public int[][] GetBoard() {
-        this.board = new int[][] {
+        return new int[][]{
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0}
         };
-
-        return this.board;
     }
-
 
 
     public Object[] updateBoard(int choice, int currentPlayer, int[][] board) {
@@ -35,7 +29,6 @@ public class Board {
                 break;
             }
         }
-
         return new Object[] {selectedBoardLine, board};
     }
 
