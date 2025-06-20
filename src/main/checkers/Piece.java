@@ -38,9 +38,6 @@ public class Piece {
             top2 = position[0] + 1; // top
             left1 = position[1] - 1; // left
 
-            //topRightState = board[position[0]+1][position[1]+1];
-            //topLeftState = board[position[0]+1][position[1]-1];
-
             if (top1 >= 0 && top1 < board.length &&
                     right1 >= 0 && right1 < board[0].length) {
 
@@ -61,9 +58,6 @@ public class Piece {
             right2 = position[1] + 1; // right
             bottom2 = position[0] - 1; // bottom
             left2 = position[1] - 1; // left
-
-            //bottomRightState = board[position[0]-1][position[1]+1];
-            //bottomLeftState = board[position[0]-1][position[1]-1];
 
             if (bottom1 >= 0 && bottom1 < board.length &&
                     right2 >= 0 && right2 < board[0].length) {
