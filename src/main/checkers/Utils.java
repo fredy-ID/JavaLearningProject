@@ -9,4 +9,13 @@ public class Utils {
         }
         return piece;
     }
+
+    public Piece nullIfNotExists(Piece piece) {
+
+        if (piece == null) {
+            System.out.println("DO NOT EXIT");
+            return null;
+        }
+        return piece;
+    }
 }

@@ -45,9 +45,9 @@ public class Game {
             }
 
             Piece selectedPiece = board.getBoard()[rowNumber][columnNumber];
-            Piece[] surrounding = selectedPiece.checkAround(board.getBoard(), defaultNullPlayer);
-
-
+            if(selectedPiece != null) {
+                Piece[] surrounding = selectedPiece.checkAround(board.getBoard(), defaultNullPlayer);
+            }
 
 
             gameSessionUp=false;
