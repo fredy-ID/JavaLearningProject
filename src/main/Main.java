@@ -16,8 +16,11 @@ public class Main {
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
 
-        GameConnectFour connectFour = new GameConnectFour();
-        connectFour.Play();
+        //GameConnectFour connectFour = new GameConnectFour();
+        //connectFour.Play();
+
+        GameCheckers gameCheckers = new GameCheckers();
+        gameCheckers.Play();
 
         // Pack this GPanel (GamePanel) so we can see it
         window.pack();
