@@ -1,11 +1,13 @@
 package main.checkers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Game {
     Player playerOne = new Player(1, "white");
     Player playerTwo = new Player(2, "black");
+    Player defaultNullPlayer = new Player(0, "none");
 
     public void play(int height, int width, int startingRows) {
         //get board
@@ -25,8 +27,28 @@ public class Game {
         boolean gameSessionUp = true;
 
         while (gameSessionUp) {
-            int currentPlayer = playerOne.getId();
+            Player currentPlayer = playerOne;
             gameView.displayBoard(board.getBoard());
+            String input = currentPlayer.getInput();
+
+            char[] mapCoord = gameView.getMapCoord();
+
+            //TODO : Find another method to initialize rowNumber
+            int rowNumber=-9999;
+            int columnNumber = Character.getNumericValue(input.charAt(1));
+
+            for (int i=0; i < mapCoord.length; i++) {
+                if (mapCoord[i] == Character.toUpperCase(input.charAt(0))) {
+                    rowNumber=i;
+                    break;
+                }
+            }
+
+            Piece selectedPiece = board.getBoard()[rowNumber][columnNumber];
+            Piece[] surrounding = selectedPiece.checkAround(board.getBoard(), defaultNullPlayer);
+
+
+
 
             gameSessionUp=false;
         }

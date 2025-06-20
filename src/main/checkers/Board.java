@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private final int[][] board;
+    private final Piece[][] board;
     private final int startingRows;
 
     public Board(int height, int width, int startingRows) {
-        this.board = new int[height][width];
+        this.board = new Piece[height][width];
         this.startingRows = startingRows;
     }
 
@@ -19,7 +19,7 @@ public class Board {
     public void boardSetPieces(List<Piece> pieces) {
         for (int i = 0; i < pieces.size(); i++) {
             for (Piece piece : pieces) {
-                this.board[piece.getPosition()[0]][piece.getPosition()[1]] = piece.getPlayer().getId();
+                this.board[piece.getPosition()[0]][piece.getPosition()[1]] = piece;
             }
         }
     }
@@ -72,7 +72,7 @@ public class Board {
 
     }
 
-    public int[][] getBoard() {
+    public Piece[][] getBoard() {
         return board;
     }
 
