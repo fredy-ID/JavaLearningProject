@@ -30,7 +30,7 @@ public class Game {
         while (gameSessionUp) {
             Player currentPlayer = playerOne;
             gameView.displayBoard(board.getBoard());
-            String input = currentPlayer.getInput();
+            String input = currentPlayer.getInput(" ");
 
             char[] mapCoord = gameView.getMapCoord();
 
@@ -49,6 +49,23 @@ public class Game {
             if(selectedPiece != null) {
                 Piece[] surrounding = selectedPiece.checkAround(board.getBoard(), defaultNullPlayer);
                 System.out.println("surrounding : "+ Arrays.toString(surrounding));
+
+                int countAvailableSquares=0;
+                String text = " ";
+                for(int i=0; i<surrounding.length;i++){
+                    if(surrounding[i]==null){
+                        if(i==0){text+="left ";}
+                        if(i==1){text+=" or right";}
+                        countAvailableSquares++;
+                    }
+                }
+                switch (countAvailableSquares){
+                    case 0:
+                        break;
+                    case 1:
+                        input = currentPlayer.getInput(text);
+                        //selectedPiece.goTo(input);
+                }
             }
 
 

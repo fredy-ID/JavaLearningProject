@@ -38,18 +38,18 @@ public class Piece {
             top2 = position[0] + 1; // top
             left1 = position[1] - 1; // left
 
-            if (top1 >= 0 && top1 < board.length &&
-                right1 >= 0 && right1 < board[0].length) {
-                    topRightState = board[top1][right1];
-            }else{
-                topRightState = new Piece(-1, -1, defaultNullPlayer);
-            }
-
             if (top2 >= 0 && top2 < board.length &&
                     left1 >= 0 && left1 < board[0].length) {
                 topLeftState = board[top2][left1];
             }else{
                 topLeftState = new Piece(-1, -1, defaultNullPlayer);
+            }
+
+            if (top1 >= 0 && top1 < board.length &&
+                    right1 >= 0 && right1 < board[0].length) {
+                topRightState = board[top1][right1];
+            }else{
+                topRightState = new Piece(-1, -1, defaultNullPlayer);
             }
 
             return new Piece[] {topRightState, topLeftState};
@@ -62,19 +62,19 @@ public class Piece {
             bottom2 = position[0] - 1; // bottom
             left2 = position[1] - 1; // left
 
-            if (bottom1 >= 0 && bottom1 < board.length &&
-                    right2 >= 0 && right2 < board[0].length) {
-                bottomRightState = board[bottom1][right2];
-            }else{
-                bottomRightState = new Piece(-1, -1, defaultNullPlayer);
-            }
-
             if (bottom2 >= 0 && bottom2 < board.length &&
                     left2 >= 0 && left2 < board[0].length) {
 
                 bottomLeftState = board[bottom2][left2];
             }else{
                 bottomLeftState = new Piece(-1, -1, defaultNullPlayer);
+            }
+
+            if (bottom1 >= 0 && bottom1 < board.length &&
+                    right2 >= 0 && right2 < board[0].length) {
+                bottomRightState = board[bottom1][right2];
+            }else{
+                bottomRightState = new Piece(-1, -1, defaultNullPlayer);
             }
 
             return new Piece[] {bottomRightState, bottomLeftState};

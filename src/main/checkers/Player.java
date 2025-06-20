@@ -22,9 +22,9 @@ public class Player {
         this.color = color;
     }
 
-    public String getInput() {
+    public String getInput(String txt) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type coord (ex: g4) : ");
+        System.out.println("Type coord (ex: g4) : "+txt);
         this.input = scanner.nextLine().trim();
 
         return input;
