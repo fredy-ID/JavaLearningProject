@@ -26,6 +26,7 @@ public class Game {
 
         boolean gameSessionUp = true;
 
+        //start game session
         while (gameSessionUp) {
             Player currentPlayer = playerOne;
             gameView.displayBoard(board.getBoard());
@@ -47,7 +48,9 @@ public class Game {
             Piece selectedPiece = board.getBoard()[rowNumber][columnNumber];
             if(selectedPiece != null) {
                 Piece[] surrounding = selectedPiece.checkAround(board.getBoard(), defaultNullPlayer);
+                System.out.println("surrounding : "+ Arrays.toString(surrounding));
             }
+
 
 
             gameSessionUp=false;

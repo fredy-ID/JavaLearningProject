@@ -29,7 +29,7 @@ public class Piece {
         int top1, top2, right1, left1;
         int bottom1, bottom2, right2, left2;
 
-        if(this.player.getColor().equals("white")){
+        if(this.player.getColor().equals("black")){
             Piece topRightState = null;
             Piece topLeftState = null;
 
@@ -39,14 +39,17 @@ public class Piece {
             left1 = position[1] - 1; // left
 
             if (top1 >= 0 && top1 < board.length &&
-                    right1 >= 0 && right1 < board[0].length) {
-
-                topRightState = board[top1][right1];
+                right1 >= 0 && right1 < board[0].length) {
+                    topRightState = board[top1][right1];
+            }else{
+                topRightState = new Piece(-1, -1, defaultNullPlayer);
             }
 
             if (top2 >= 0 && top2 < board.length &&
                     left1 >= 0 && left1 < board[0].length) {
                 topLeftState = board[top2][left1];
+            }else{
+                topLeftState = new Piece(-1, -1, defaultNullPlayer);
             }
 
             return new Piece[] {topRightState, topLeftState};
@@ -62,12 +65,16 @@ public class Piece {
             if (bottom1 >= 0 && bottom1 < board.length &&
                     right2 >= 0 && right2 < board[0].length) {
                 bottomRightState = board[bottom1][right2];
+            }else{
+                bottomRightState = new Piece(-1, -1, defaultNullPlayer);
             }
 
             if (bottom2 >= 0 && bottom2 < board.length &&
                     left2 >= 0 && left2 < board[0].length) {
 
                 bottomLeftState = board[bottom2][left2];
+            }else{
+                bottomLeftState = new Piece(-1, -1, defaultNullPlayer);
             }
 
             return new Piece[] {bottomRightState, bottomLeftState};
