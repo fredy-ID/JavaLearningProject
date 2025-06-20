@@ -1,6 +1,6 @@
 package main;
 
-import java.util.Arrays;
+/*
 import java.util.Scanner;
 import main.connectFour.Board;
 import main.connectFour.GameView;
@@ -22,7 +22,6 @@ public class GameConnectFour {
         } else {
             winState=false;
         }
-
         return winState;
     }
 
@@ -36,7 +35,7 @@ public class GameConnectFour {
         int playerTwo = 2;
         int currentPlayer = playerOne;
 
-        int[][] board = boardClass.GetBoard();
+        int[][] board = boardClass.getBoard();
         gameView.displayBoard(board);
 
         while (gameStatus) {
@@ -53,7 +52,7 @@ public class GameConnectFour {
             int selectedBoardLine;
             Object[] updateResult;
 
-            updateResult=boardClass.updateBoard(choice, currentPlayer, board);
+            updateResult=boardClass.updateBoard(choice, currentPlayer);
             selectedBoardLine = (int) updateResult[0];
             board = (int[][]) updateResult[1];
 
@@ -78,16 +77,22 @@ public class GameConnectFour {
                         checkResult=checker.checkColumn(board, choice, currentPlayer);
                         winningPlay=winStatus(checkResult.getWinningPoints());
                         board=checkResult.getBoard();
-
                         break;
                     case 1:
                         checkResult=checker.checkRow(board, selectedBoardLine, currentPlayer);
                         winningPlay=winStatus(checkResult.getWinningPoints());
                         board=checkResult.getBoard();
-
                         break;
                 }
             }
+
+            checkResult=checker.checkColumn(board, choice, currentPlayer);
+            winningPlay=winStatus(checkResult.getWinningPoints());
+            board=checkResult.getBoard();
+
+            checkResult=checker.checkRow(board, selectedBoardLine, currentPlayer);
+            winningPlay=winStatus(checkResult.getWinningPoints());
+            board=checkResult.getBoard();
 
             System.out.println("winningPlay 3 : "+winningPlay);
 
@@ -108,3 +113,6 @@ public class GameConnectFour {
         }
     }
 }
+
+
+ */
