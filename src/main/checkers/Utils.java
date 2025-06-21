@@ -2,20 +2,16 @@ package main.checkers;
 
 public class Utils {
 
-    public Piece convertIfNull(Piece piece, int x, int y, Player player) {
+    public Piece validatePosition(int row, int column, Piece[][] board) {
+        Piece result;
 
-        if (piece == null) {
-            return new Piece(x, y, player);
+        if (row >= 0 && row < board.length &&
+                column >= 0 && column < board[0].length) {
+            result = board[row][column];
+        }else{
+            result = null;
         }
-        return piece;
-    }
-
-    public Piece nullIfNotExists(Piece piece) {
-
-        if (piece == null) {
-            System.out.println("DO NOT EXIT");
-            return null;
-        }
-        return piece;
+        System.out.println("result ____ + "+result+" row : "+row+" column : "+column);
+        return result;
     }
 }

@@ -24,7 +24,7 @@ public class Player {
 
     public String getInput(String txt) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type coord (ex: g4) : "+txt);
+        System.out.println(txt);
         this.input = scanner.nextLine().trim();
 
         return input;

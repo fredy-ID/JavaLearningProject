@@ -7,7 +7,9 @@ import java.util.List;
 public class Game {
     Player playerOne = new Player(1, "white");
     Player playerTwo = new Player(2, "black");
-    Player defaultNullPlayer = new Player(0, "none");
+    Player defaultNullPlayer = new Player(-1, "none");
+
+    Utils utils = new Utils();
 
     public void play(int height, int width, int startingRows) {
         //get board
@@ -24,68 +26,78 @@ public class Game {
 
         board.boardSetPieces(startingPieces);
 
-        boolean gameSessionUp = true;
-
         //start game session
-        while (gameSessionUp) {
-            Player currentPlayer = playerOne;
+        Player currentPlayer = playerTwo;
+        System.out.println("____ Now playing ____"+currentPlayer.getColor());
+        while (true) {
             gameView.displayBoard(board.getBoard());
-            String input = currentPlayer.getInput(" ");
+            System.out.println("current player : " + currentPlayer.getColor());
+            String input = currentPlayer.getInput("Type coord (ex: g4) : ");
 
             char[] mapCoord = gameView.getMapCoord();
 
-            //TODO : Find another method to initialize rowNumber
-            int rowNumber=-9999;
-            int columnNumber = Character.getNumericValue(input.charAt(1));
-
-            for (int i=0; i < mapCoord.length; i++) {
-                if (mapCoord[i] == Character.toUpperCase(input.charAt(0))) {
-                    rowNumber=i;
-                    break;
+            // convert input to row and column
+            int rowNumber = -1;
+            int columnNumber = -1;
+            if (input.length() >= 2) {
+                char rowChar = Character.toUpperCase(input.charAt(0));
+                char colChar = input.charAt(1);
+                // search for row index
+                for (int i = 0; i < mapCoord.length; i++) {
+                    if (mapCoord[i] == rowChar) {
+                        rowNumber = i;
+                        break;
+                    }
+                }
+                // convert column to number
+                if (Character.isDigit(colChar)) {
+                    columnNumber = Character.getNumericValue(colChar) - 1; // '1' -> 0
                 }
             }
 
-            Piece selectedPiece = board.getBoard()[rowNumber][columnNumber];
-            if(selectedPiece != null) {
+            // Validation des coordonnées
+            Piece selectedPiece = utils.validatePosition(rowNumber, columnNumber, board.getBoard());
+            if(selectedPiece == null) {
+                System.out.println("invalid coordinates or empty square. try again.");
+                continue;
+            }
+            // Vérifie que la pièce appartient bien au joueur courant
+            if(selectedPiece != null && selectedPiece.toString().equals(""+currentPlayer.getId())) {
                 Piece[] surrounding = selectedPiece.checkAround(board.getBoard(), defaultNullPlayer);
                 System.out.println("surrounding : "+ Arrays.toString(surrounding));
 
-                int countAvailableSquares=0;
+                //possible actions, terminal display text
                 String text = " ";
                 for(int i=0; i<surrounding.length;i++){
                     if(surrounding[i]==null){
                         if(i==0){text+="left ";}
                         if(i==1){text+=" or right";}
-                        countAvailableSquares++;
                     }
                 }
-                switch (countAvailableSquares){
-                    case 0:
-                        break;
-                    case 1:
-                        input = currentPlayer.getInput(text);
-                        //selectedPiece.goTo(input);
-                }
+
+                System.out.println("text : "+ text);
+                //get next move
+                input = currentPlayer.getInput(text);
+                selectedPiece.goTo(input);
+                // display board
+                gameView.displayBoard(board.getBoard());
+                // change player
+                currentPlayer = (currentPlayer == playerOne) ? playerTwo : playerOne;
+            } else {
+                System.out.println("invalid piece selection !");
             }
-
-
-
-            gameSessionUp=false;
         }
-
-
     }
 
     private List<Piece> generatePieces(List<Coord> whitePlayerSquares, List<Coord> blackPlayerSquares){
         List<Piece> startingPieces = new ArrayList<>();
 
-        //Enhanced for loop O.O what ??? xD
         for (Coord whitePlayerSquare : whitePlayerSquares) {
             startingPieces.add(new Piece(whitePlayerSquare.getRow(), whitePlayerSquare.getCol(), playerOne));
         }
 
-        for(int i=0; i<blackPlayerSquares.size(); i++){
-            startingPieces.add(new Piece(blackPlayerSquares.get(i).getRow(), blackPlayerSquares.get(i).getCol(), playerTwo));
+        for (Coord blackPlayerSquare : blackPlayerSquares) {
+            startingPieces.add(new Piece(blackPlayerSquare.getRow(), blackPlayerSquare.getCol(), playerTwo));
         }
 
         return startingPieces;

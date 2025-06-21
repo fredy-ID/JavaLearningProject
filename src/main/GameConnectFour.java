@@ -1,6 +1,5 @@
 package main;
 
-/*
 import java.util.Scanner;
 import main.connectFour.Board;
 import main.connectFour.GameView;
@@ -8,6 +7,7 @@ import main.connectFour.Checker;
 
 // ConnectFour
 
+/*
 public class GameConnectFour {
 
     Board boardClass = new Board();
@@ -85,7 +85,7 @@ public class GameConnectFour {
                         break;
                 }
             }
-
+    
             checkResult=checker.checkColumn(board, choice, currentPlayer);
             winningPlay=winStatus(checkResult.getWinningPoints());
             board=checkResult.getBoard();
@@ -113,6 +113,4 @@ public class GameConnectFour {
         }
     }
 }
-
-
- */
+    
